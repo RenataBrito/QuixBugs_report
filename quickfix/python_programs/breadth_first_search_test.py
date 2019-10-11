@@ -1,5 +1,5 @@
-from .node import Node
-from .breadth_first_search import breadth_first_search
+from node import Node
+from breadth_first_search import breadth_first_search
 
 
 """

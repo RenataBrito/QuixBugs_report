@@ -1,5 +1,5 @@
-from .node import Node
-from .detect_cycle import detect_cycle
+from node import Node
+from detect_cycle import detect_cycle
 
 
 """

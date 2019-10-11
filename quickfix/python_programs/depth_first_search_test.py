@@ -1,5 +1,5 @@
-from .node import Node
-from .depth_first_search import depth_first_search
+from node import Node
+from depth_first_search import depth_first_search
 
 
 """

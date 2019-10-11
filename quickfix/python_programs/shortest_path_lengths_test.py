@@ -1,4 +1,4 @@
-from .shortest_path_lengths import shortest_path_lengths
+from shortest_path_lengths import shortest_path_lengths
 
 
 """

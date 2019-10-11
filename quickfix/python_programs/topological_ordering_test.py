@@ -1,5 +1,5 @@
-from .node import Node
-from .topological_ordering import topological_ordering
+from node import Node
+from topological_ordering import topological_ordering
 
 
 """

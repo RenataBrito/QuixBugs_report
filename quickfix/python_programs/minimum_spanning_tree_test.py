@@ -1,4 +1,4 @@
-from .minimum_spanning_tree import minimum_spanning_tree
+from minimum_spanning_tree import minimum_spanning_tree
 
 
 """

@@ -1,5 +1,5 @@
-from .node import Node
-from .reverse_linked_list import reverse_linked_list
+from node import Node
+from reverse_linked_list import reverse_linked_list
 
 
 """
