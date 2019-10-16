@@ -18,9 +18,8 @@ if __name__ == "__main__":
         programa = sys.argv[1]
         #comando = "{}".format(programa)
         comando = "python3 {}".format(programa)
-        out_str = subprocess.check_output(comando, shell=True)
+        process = subprocess.call(comando, shell=True)
 
-        print(out_str)
 
     elif len(sys.argv) == 3:
         #executar so com 1
