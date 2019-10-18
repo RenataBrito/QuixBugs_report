@@ -5,29 +5,41 @@
 import sys
 import os
 import subprocess
-#from quickfix.python_programs import *
+from util import create_programs_list
 
 
 
 
 if __name__ == "__main__":
-    #a = bitcount.bitcount(5)
     
-    if len(sys.argv) == 2:
-        #executar com todos
+    if len(sys.argv) == 1:
+
+        try:
+            with open("programs.txt", "r") as programs_list:
+
+                for program in programs_list:
+                    print(program)
+        except:
+            create_programs_list()
+
+   
+    elif len(sys.argv) == 2:
+
         programa = sys.argv[1]
-        #comando = "{}".format(programa)
-        comando = "python3 {}".format(programa)
-        process = subprocess.call(comando, shell=True)
+        
+        if ".py" not in programa:
+            programa += ".py"
+
+        source_dir = ".\\quickfix\\python_programs\\"
+        programa = source_dir + programa 
+
+        comando_test = "pytest --cov . {}".format(programa)
+        comando_test = "python3 {}".format(programa)
+        print("Command: {}".format(comando_test))
+        process = subprocess.call(comando_test, shell=True)
 
 
-    elif len(sys.argv) == 3:
-        #executar so com 1
-        #programas = util.create_programs
 
-        #for programa in programs:
-            #comando = "python3 {}".format(programa)
-            #os.exec(comando)
-        pass
+    
     else:
         print('W: Usage: python3 report_test.py program | python3 report_test.py ') 
