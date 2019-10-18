@@ -1,4 +1,3 @@
-bitcount.cpython-37.pyc
 bitcount.py
 breadth_first_search.py
 breadth_first_search_test.py
