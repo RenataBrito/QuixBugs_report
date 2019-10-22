@@ -10,7 +10,7 @@ def create_programs_list():
     
     for root, dirs, files in os.walk(source, topdown=False):
         for f in files:
-            if f[-3:] == '.py':
+            if f[-3:] == '.py' and 'test' not in f:
                 with open('programs.txt', 'a') as programs_file:
                     name = "{}\n".format(f)
                     programs_file.write(name)
