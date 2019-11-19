@@ -5,7 +5,10 @@ import sys
 import json
 import pytest
 
+import copy
+import types
 import subprocess
+
 
 
 #local
@@ -50,7 +53,6 @@ def load_tests(data):
 
 
 
-
 def test_module(stringinput):
     """
         This function handles the test execution
@@ -58,7 +60,19 @@ def test_module(stringinput):
 
     generator = load_tests(stringinput)
     for inn, expected in generator:
-        actual = execute_python_module(stringinput, inn)
+        
+        #in order to garantee copy operation always take inputs as a list
+        if not isinstance(inn, list):
+            inn = [inn]
+        
+        # *copy.deepcopy(inn) to pass arguments separable
+        actual = execute_python_module(stringinput, *copy.deepcopy(inn))
+        
+        #some programs produces a generator and the json file expects a list. Thus convert the generator into a list to perform the assertion
+        if isinstance(actual, types.GeneratorType):
+            actual = list(actual)        
+        
+        print('Actual: ', actual, '| Expected: ', expected)
         assert actual == expected
 
 
@@ -66,7 +80,52 @@ def test_module(stringinput):
 
 if __name__ == "__main__":
     
-    algo = "bitcount"
+    #this programs need to be executed in a different way, will focus in the simple ones
+    graph_based = ["node", #node is a auxiliar object class used in the graph_based algos
+               "breadth_first_search",
+               "depth_first_search",
+               "detect_cycle",
+               "minimum_spanning_tree",
+               "reverse_linked_list",
+               "shortest_path_length",
+               "shortest_path_lengths",
+               "shortest_paths",
+               "topological_ordering"
+              ]
 
-    comando_test = 'pytest -s  --stringinput="{}"'.format(algo)
-    process = subprocess.call(comando_test, shell=True)
+    #run a single algo specified through parameter
+    if len(sys.argv) == 2:
+
+        algo = sys.argv[1]
+
+        """
+            -m loads pytest module
+            -vv #verbose mode
+            -s shows print statments 
+            --timeout= 60 #time in seconds
+            --cov-branch
+            --cov-report term  
+        """
+        test_comand = 'python3 -m pytest -vv -s --cov=* --timeout=20 --stringinput="{}"'.format(algo)
+        process = subprocess.call(test_comand, shell=True)
+
+    #run all algorithms
+    else:
+
+        with open('programs.txt', 'r') as algo_list:
+
+            for algo in algo_list:
+
+                #skips \n and .py
+                algo = algo[:-4]
+
+                #skip the programs that don't have json testcases 
+                if algo not in graph_based:
+                    
+
+                    """
+                        -m loads pytest module
+                        -s shows print statments 
+                    """
+                    test_comand = 'python3 -m pytest -vv -s --timeout=20 --stringinput="{}"'.format(algo)
+                    process = subprocess.call(test_comand, shell=True)  
