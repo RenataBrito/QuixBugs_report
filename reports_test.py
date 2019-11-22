@@ -72,6 +72,7 @@ def test_module(stringinput):
         if isinstance(actual, types.GeneratorType):
             actual = list(actual)        
         
+        print('Input: ', inn)
         print('Actual: ', actual, '| Expected: ', expected)
         assert actual == expected
 
@@ -106,7 +107,7 @@ if __name__ == "__main__":
             --cov-branch
             --cov-report term  
         """
-        test_comand = 'python3 -m pytest -vv -s --cov=* --timeout=20 --stringinput="{}"'.format(algo)
+        test_comand = 'python3 -m pytest -vv -s  --timeout=20 --stringinput="{}"'.format(algo)
         process = subprocess.call(test_comand, shell=True)
 
     #run all algorithms
