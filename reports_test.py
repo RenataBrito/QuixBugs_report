@@ -80,25 +80,38 @@ def test_module(stringinput):
 
 
 if __name__ == "__main__":
-    
-    #this programs need to be executed in a different way, will focus in the simple ones
-    graph_based = ["node", #node is a auxiliar object class used in the graph_based algos
-               "breadth_first_search",
-               "depth_first_search",
-               "detect_cycle",
-               "minimum_spanning_tree",
-               "reverse_linked_list",
-               "shortest_path_length",
-               "shortest_path_lengths",
-               "shortest_paths",
-               "topological_ordering"
-              ]
 
-    #run a single algo specified through parameter
-    if len(sys.argv) == 2:
+    #Check python version
+    if sys.version_info[0] < 3:
+        raise Exception("Python 3 or a more recent version is required.")
 
-        algo = sys.argv[1]
+	#choices
+    print("1 - Run tests dynamically")
+    print("2 - Run Run tests through scripts")    
 
+    #read the option
+    switch = int(input("Chose a option: "))
+
+    #execute according to the option
+    if switch not in [1, 2]:
+        print("W: Invalid option!")
+
+    if(switch == 1):
+
+        #this programs need to be executed in a different way, will focus in the simple ones
+        graph_based = ["node", #node is a auxiliar object class used in the graph_based algos
+                "breadth_first_search",
+                "depth_first_search",
+                "detect_cycle",
+                "minimum_spanning_tree",
+                "reverse_linked_list",
+                "shortest_path_length",
+                "shortest_path_lengths",
+                "shortest_paths",
+                "topological_ordering"
+                ]
+
+        #pytest parameters
         """
             -m loads pytest module
             -vv #verbose mode
@@ -107,26 +120,32 @@ if __name__ == "__main__":
             --cov-branch
             --cov-report term  
         """
-        test_comand = 'python3 -m pytest -vv -s  --timeout=20 --stringinput="{}"'.format(algo)
-        process = subprocess.call(test_comand, shell=True)
 
-    #run all algorithms
+        #run a single algo specified through parameter
+        if len(sys.argv) == 2:
+
+            algo = sys.argv[1]
+
+            test_comand = 'python3 -m pytest -vv -s  --timeout=20 --stringinput="{}"'.format(algo)
+            process = subprocess.call(test_comand, shell=True)
+
+        #run all algorithms
+        else:
+
+            with open('programs.txt', 'r') as algo_list:
+
+                for algo in algo_list:
+
+                    #skips \n and .py
+                    algo = algo[:-4]
+
+                    #skip the programs that don't have json testcases 
+                    if algo not in graph_based:
+                        
+                        test_comand = 'python3 -m pytest -vv -s --timeout=20 --stringinput="{}"'.format(algo)
+                        process = subprocess.call(test_comand, shell=True)  
+    
     else:
 
-        with open('programs.txt', 'r') as algo_list:
-
-            for algo in algo_list:
-
-                #skips \n and .py
-                algo = algo[:-4]
-
-                #skip the programs that don't have json testcases 
-                if algo not in graph_based:
-                    
-
-                    """
-                        -m loads pytest module
-                        -s shows print statments 
-                    """
-                    test_comand = 'python3 -m pytest -vv -s --timeout=20 --stringinput="{}"'.format(algo)
-                    process = subprocess.call(test_comand, shell=True)  
+        test_comand = 'python3 -m pytest --cov=python_tests/' 
+        process = subprocess.call(test_comand, shell=True)
