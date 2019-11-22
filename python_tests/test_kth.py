@@ -1,12 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import sys
 import json
 import pytest
 
-#import local module
-sys.path.append("..")
 from python_programs.kth import kth
 
 
@@ -27,5 +24,5 @@ testcases = [tuple(json.loads(line)) for line in json_file]
 ]"""
 
 @pytest.mark.parametrize("test_input,expected", testcases)
-def test_bitcount(test_input, expected):
+def test_kth(test_input, expected):
     assert kth(*test_input) == expected

@@ -1,12 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import sys
 import json
 import pytest
 
-#import local module
-sys.path.append("..")
 from python_programs.bitcount import bitcount
 
 
