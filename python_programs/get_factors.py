@@ -9,12 +9,12 @@ def get_factors(n):
 
     return [n]
 
-if __name__ == "__main__":
+"""if __name__ == "__main__":
     a = 100
     print(get_factors(a))
     #[100, [2, 2, 5, 5]]
     pass
-
+"""
 """
 def get_factors(n):
     if n == 1:

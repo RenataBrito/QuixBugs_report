@@ -10,6 +10,6 @@ def hanoi(height, start=1, end=3):
     return steps
 
 if __name__ == "__main__":
-    print(hanoi(1,1,3))
+    print(hanoi(2,3,1))
     #[[0, 1, 3], []]
     pass

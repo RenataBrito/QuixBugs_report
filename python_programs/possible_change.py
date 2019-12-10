@@ -5,8 +5,15 @@ def possible_change(coins, total):
     if total < 0 or not coins:
         return 0
 
-    first, *rest = coins
+    #first, *rest = coins
+    first = coins[0]
+    [*rest] = coins[1:]
     return possible_change(coins, total - first) + possible_change(rest, total)
+
+#if __name__ == '__main__':
+ #   print(possible_change([1, 5, 10, 25], 11))
+   # pass
+    
 
 """
 def possible_change(coins, total):

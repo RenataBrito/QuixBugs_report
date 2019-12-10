@@ -23,7 +23,7 @@ def bucketsort(arr, k):
     return sorted_arr
 """
 
-if __name__ == "__main__":
+"""if __name__ == "__main__":
     vet1 = []
     vet2 = [3, 11, 2, 9, 1, 5]
     vet3 = [50,20,45,10,69]
@@ -31,3 +31,4 @@ if __name__ == "__main__":
     print (bucketsort(vet2,12))
     print (bucketsort(vet3,70))
 pass
+"""

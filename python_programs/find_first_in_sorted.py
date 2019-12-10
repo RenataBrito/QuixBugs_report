@@ -17,10 +17,11 @@ def find_first_in_sorted(arr, x):
 
     return -1
 
-if __name__ == "__main__":
+"""if __name__ == "__main__":
     a = [3, 4, 5, 5, 5, 5, 6] 
     print(find_first_in_sorted(a,2))
     pass
+"""
 
 """
 def find_first_in_sorted(arr, x):

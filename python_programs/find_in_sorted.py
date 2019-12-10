@@ -13,7 +13,8 @@ def find_in_sorted(arr, x):
 
     return binsearch(0, len(arr))
 
-if __name__ == "__main__":
+"""if __name__ == "__main__":
     a = [3, 4, 5, 5, 5, 5, 6]
     print (find_in_sorted(a,5))
     pass
+"""
