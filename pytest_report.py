@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-
+import os
 import subprocess
 
+#used to find the root dir of the projetct
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 #this programs need to be executed in a different way, will focus in the simple ones
 graph_based = [    	"node", #node is a auxiliar object class used in the graph_based algos
