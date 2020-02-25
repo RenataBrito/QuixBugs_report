@@ -4,11 +4,12 @@
 import json
 import pytest
 
+from pytest_report import ROOT_DIR
 from python_programs.subsequences import subsequences
 
 
 #open 
-json_file = open('json_testcases/subsequences.json', 'r')
+json_file = open(ROOT_DIR + '/json_testcases/subsequences.json', 'r')
 
 testcases = [tuple(json.loads(line)) for line in json_file]
 

@@ -4,11 +4,12 @@
 import json
 import pytest
 
+from pytest_report import ROOT_DIR
 from python_programs.get_factors import get_factors
 
 
 #open 
-json_file = open('json_testcases/get_factors.json', 'r')
+json_file = open(ROOT_DIR + '/json_testcases/get_factors.json', 'r')
 
 testcases = [tuple(json.loads(line)) for line in json_file]
 

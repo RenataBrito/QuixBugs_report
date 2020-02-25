@@ -4,11 +4,12 @@
 import json
 import pytest
 
+from report import ROOT_DIR
 from python_programs.powerset import powerset
 
 
 #open 
-json_file = open('json_testcases/powerset.json', 'r')
+json_file = open(ROOT_DIR + '/json_testcases/powerset.json', 'r')
 
 testcases = [tuple(json.loads(line)) for line in json_file]
 

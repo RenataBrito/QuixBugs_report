@@ -4,11 +4,12 @@
 import json
 import pytest
 
+from pytest_report import ROOT_DIR
 from python_programs.is_valid_parenthesization import is_valid_parenthesization
 
 
 #open 
-json_file = open('json_testcases/is_valid_parenthesization.json', 'r')
+json_file = open(ROOT_DIR + '/json_testcases/is_valid_parenthesization.json', 'r')
 
 testcases = [tuple(json.loads(line)) for line in json_file]
 
