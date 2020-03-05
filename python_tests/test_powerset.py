@@ -4,12 +4,12 @@
 import json
 import pytest
 
-from report import ROOT_DIR
-from python_programs.possible_change import possible_change
+from pytest_report import ROOT_DIR
+from python_programs.powerset import powerset
 
 
 #open 
-json_file = open(ROOT_DIR + '/json_testcases/possible_change.json', 'r')
+json_file = open(ROOT_DIR + '/json_testcases/powerset.json', 'r')
 
 testcases = [tuple(json.loads(line)) for line in json_file]
 
@@ -25,5 +25,5 @@ testcases = [tuple(json.loads(line)) for line in json_file]
 ]"""
 
 @pytest.mark.parametrize("test_input,expected", testcases)
-def test_possible_change(test_input, expected):
-    assert possible_change(*test_input) == expected
+def test_powerset(test_input, expected):
+    assert powerset(*test_input) == expected
