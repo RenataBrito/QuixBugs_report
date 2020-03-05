@@ -3,6 +3,7 @@
 
 import json
 import pytest
+import unittest
 
 from pytest_report import ROOT_DIR
 from python_programs.sqrt import sqrt
@@ -24,6 +25,13 @@ testcases = [tuple(json.loads(line)) for line in json_file]
     ('e', 5),
 ]"""
 
+
+#create an obj of unittest.TestCase class
+assertions = unittest.TestCase('__init__')
+
 @pytest.mark.parametrize("test_input,expected", testcases)
 def test_sqrt(test_input, expected):
-    assert sqrt(*test_input) == expected
+
+    #exploit unittest framework to use assertAlmostEqual    
+    assertions.assertAlmostEqual(sqrt(*test_input), expected, 4)
+    
