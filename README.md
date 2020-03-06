@@ -13,7 +13,6 @@ Our goal is to analyze the branch/mutation coverage of the initial test set prov
 
 ## Requirements
 
-This section is optional if there isn't any special dependencies. Else a bulletlist will suffice, e.g.,
 + [Python 3.7+](https://www.python.org/)
 + [python3-venv](https://docs.python.org/3/library/venv.html)
 + requirements.txt
