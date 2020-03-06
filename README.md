@@ -1,9 +1,3 @@
-This project intent to analisis the QuixBugs benchmark. The benchmark consists of 40 programs from the Quixey Challenge translated into Python programing language. 
-
-
-
-
-
 # Quickbugs Report
 
 This project intent to analisis the QuixBugs benchmark. The benchmark consists of 40 programs from the Quixey Challenge translated into Python programing language.
@@ -34,16 +28,6 @@ Getting started:
     source venv/bin/activate
     pip install -r requiriments.txt
 
-## Usage
-
-Show how to use the project or library.
-    
-## Reference
-
-+ [jxson](https://gist.github.com/jxson) - [README.md](https://gist.github.com/jxson/1784669)
-+ [gistfrojd](https://gist.github.com/gistfrojd) - [README.md](https://gist.github.com/gistfrojd/5fcd3b70949ac6376f66)
-
-Depending on the size of the project, if it is small and simple enough the reference docs can be added to the README. For medium size to larger projects it is important to at least provide a link to where the API reference docs live.
 
 ## Contributors
 
@@ -52,4 +36,4 @@ Depending on the size of the project, if it is small and simple enough the refer
 
 ## License
 
-([MIT](http://opensource.org/licenses/mit-license.php)
+[MIT](http://opensource.org/licenses/mit-license.php)
