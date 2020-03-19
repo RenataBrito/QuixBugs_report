@@ -1,13 +1,13 @@
-from node import Node
-from topological_ordering import topological_ordering
+from python_programs.node import Node
+from python_programs.topological_ordering import topological_ordering
 
 
 """
 Driver to test topological ordering
 """
+#def test_Wikipedia_graph():
 def main():
-    # Case 1: Wikipedia graph
-    # Output: 5 7 3 11 8 10 2 9
+    Output = [5,7,3,11,8,10,2,9]
     
     five = Node(5)
     seven = Node(7)
@@ -29,13 +29,18 @@ def main():
     nine.incoming_nodes = [eleven, eight]
     ten.incoming_nodes = [eleven, three]
 
-    try:
-        [print(x.value, end=" ") for x in topological_ordering([five, seven, three, eleven, eight, two, nine, ten])]
-    except Exception as e:
-        print(e)
+
+    #try:
+    #    [print(x.value, end=" ") for x in topological_ordering([five, seven, three, eleven, eight, two, nine, ten])]
+    #    print(type(x))
+    #except Exception as e:
+    #    print(e)
+    for x in topological_ordering([five, seven, three, eleven, eight, two, nine, ten]):
+        print(type(x))
+        print(x.value, end=" ") 
     print()
-
-
+    #assert topological_ordering([five, seven, three, eleven, eight, two, nine, ten])==5
+"""
     # Case 2: GeekforGeeks example
     # Output: 4 5 0 2 3 1
 
@@ -94,7 +99,8 @@ def main():
     except Exception as e:
         print(e)
     print()
+"""
 
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
+    

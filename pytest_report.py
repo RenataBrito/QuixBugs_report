@@ -32,7 +32,7 @@ if __name__ == "__main__":
     """
 
     #ignore test file of the graph based algorithms 
-    ignore = '--ignore=python_programs/shortest_path_length_test.py --ignore=python_programs/minimum_spanning_tree_test.py --ignore=python_programs/breadth_first_search_test.py --ignore=python_programs/depth_first_search_test.py --ignore=python_programs/detect_cycle_test.py --ignore=python_programs/reverse_linked_list_test.py --ignore=python_programs/shortest_path_lengths_test.py --ignore=python_programs/shortest_paths_test.py --ignore=python_programs/topological_ordering_test.py --ignore=python_tests_error/test_possible_change.py --ignore=python_tests_error/test_powerset.py'
+    ignore = '--ignore=working/test_shortest_path_length.py --ignore=working/test_minimum_spanning_tree.py --ignore=working/test_breadth_first_search.py --ignore=working/test_depth_first_search.py --ignore=working/test_detect_cycle.py --ignore=working/test_reverse_linked_list.py --ignore=working/test_shortest_path_lengths.py --ignore=working/test_shortest_paths.py --ignore=working/test_topological_ordering.py'
 
     #build the command and execute
     # --cov-report term requires pytest-cov lib

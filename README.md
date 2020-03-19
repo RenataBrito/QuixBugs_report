@@ -25,7 +25,7 @@ Getting started:
     cd quickfix_report
     python3 -m venv ~/quickfix_report/venv
     source venv/bin/activate
-    pip install -r requiriments.txt
+    pip install -r requirements.txt
 
 
 ## Contributors
