@@ -5,10 +5,9 @@ from python_programs.topological_ordering import topological_ordering
 """
 Driver to test topological ordering
 """
-#def test_Wikipedia_graph():
-def main():
-    Output = [5,7,3,11,8,10,2,9]
-    
+def test_Wikipedia_graph():
+    expected_output = '5 7 3 11 8 10 2 9 '
+
     five = Node(5)
     seven = Node(7)
     three = Node(3)
@@ -35,15 +34,13 @@ def main():
     #    print(type(x))
     #except Exception as e:
     #    print(e)
+    string_result = ''
     for x in topological_ordering([five, seven, three, eleven, eight, two, nine, ten]):
-        print(type(x))
-        print(x.value, end=" ") 
-    print()
-    #assert topological_ordering([five, seven, three, eleven, eight, two, nine, ten])==5
-"""
-    # Case 2: GeekforGeeks example
-    # Output: 4 5 0 2 3 1
+        string_result += str(x.value) + ' '
+    assert string_result == expected_output
 
+def test_GeekforGeeks_example():
+    expected_output = '4 5 0 2 3 1 '
     five = Node(5)
     zero = Node(0)
     four = Node(4)
@@ -60,15 +57,22 @@ def main():
     three.incoming_nodes = [two]
     three.outgoing_nodes = [one]
 
+    """
     try:
-        [print(x.value, end=" ") for x in topological_ordering([zero, one, two, three, four, five])]
+        [print(x.value, end=" ") for x in topological_ordering([zero, one, two, three, four, five]) string_result += str(x.value) + ' ']
+        
     except Exception as e:
+        string_result += str(x.value) + ' '
         print(e)
     print()
-    
+    """
+    string_result = ''
+    for x in topological_ordering([zero, one, two, three, four, five]):
+        string_result += str(x.value) + ' '
+    assert string_result == expected_output
 
-    # Case 3: Cooking with InteractivePython
-    # Output:
+def test_Cooking_with_InteractivePython():
+    expected_output = '3/4 cup milk 1 egg 1 Tbl oil heat griddle 1 cup mix pour 1/4 cup heat syrup turn when bubbly eat '
 
     milk = Node("3/4 cup milk")
     egg = Node("1 egg")
@@ -94,13 +98,14 @@ def main():
     syrup.outgoing_nodes = [eat]
     eat.incoming_nodes = [syrup, turn]
 
+    """
     try:
         [print(x.value, end=" ") for x in topological_ordering([milk, egg, oil, mix, syrup, griddle, pour, turn, eat])]
     except Exception as e:
         print(e)
     print()
-"""
-
-if __name__ == '__main__':
-    main()
-    
+    """
+    string_result = ''
+    for x in topological_ordering([milk, egg, oil, mix, syrup, griddle, pour, turn, eat]):
+        string_result += str(x.value) + ' '
+    assert string_result == expected_output
