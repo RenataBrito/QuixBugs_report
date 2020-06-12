@@ -26,4 +26,6 @@ testcases = [tuple(json.loads(line)) for line in json_file]
 
 @pytest.mark.parametrize("test_input,expected", testcases)
 def test_next_permutation(test_input, expected):
+    if expected == []:
+           expected = None; 
     assert next_permutation(*test_input) == expected
