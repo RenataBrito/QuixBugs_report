@@ -23,9 +23,9 @@ if __name__ == "__main__":
     # --cov-report term or --cov-report html requires pytest-cov lib
 
     #exit at the terminal
-    #test_comand = 'pytest -vv -s --cov-report term  --cov=python_programs/' 
+    test_comand = 'pytest -vv -s --cov-report term  --cov=python_programs/' 
 
     #exit on web page
-    test_comand = 'pytest -vv -s --cov-report html  --cov=python_programs/'
+    #test_comand = 'pytest -vv -s --cov-report html  --cov=python_programs/'
     
     process = subprocess.call(test_comand, shell=True)
