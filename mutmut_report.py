@@ -12,7 +12,7 @@ ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 def run_mutmut(path, program):
 
     #comand line to run  mutmut
-    test_comand = 'mutmut run --paths-to-mutate={}/{}'.format(path, program)  
+    test_comand = 'mutmut run --paths-to-mutate={}/{}'.format(path, program) 
     
     #runing mutmut using subprocess
     process = subprocess.Popen(test_comand, stdout=subprocess.PIPE, shell=True)
@@ -30,19 +30,25 @@ def process_output(output_string, program):
     token = '2. Checking mutants'
     (before, token, after) = output_string.partition(token)
     
-
     #split the results into a list
     results_list  = after.split()
 
-    #get the target data
-    total      = results_list[-9]
-    killed     = results_list[-7]
-    timeout    = results_list[-5]
-    suspicious = results_list[-3]
-    alive      = results_list[-1] 
+    try:
+        #get the target data
+        total      = results_list[-11]
+        killed     = results_list[-9]
+        timeout    = results_list[-7]
+        suspicious = results_list[-5]
+        survived   = results_list[-3]
+        alive      = results_list[-1] 
+    except Exception as e:
+        print("W: Problema no programa: {}".format(program))
+        return {program: []}
+
+
 
     #update results_list with target data
-    results_list = [total, killed, timeout, suspicious, alive]
+    results_list = [total, killed, timeout, suspicious, survived, alive]
 
     result = {program: results_list}
 
@@ -53,18 +59,67 @@ def process_output(output_string, program):
 def print_results(result_dict):
 
     #printing the results
-    print('Name\t\t\t\t\t\tME/TM    MM     TL    Susp   SobV')
-    print('-----------------------------------------------------------------------------------')
+    cabecalho = ""
+    title_ini = 'Name ME/TM KM  TL Susp SobV Skip'
+    cabecalho_list = title_ini.split()
+    for i in cabecalho_list:
+        if(i == 'Name'):
+            cabecalho = cabecalho + i + "                               "
+            tam_esp_name = len(cabecalho)
+        elif(i == 'Skip'):
+            cabecalho = cabecalho + i
+        else:
+            cabecalho = cabecalho + i + "    "
+    print(cabecalho)
+    tam_cabecalho = len(cabecalho)
+    while(tam_cabecalho != 0):
+        if(tam_cabecalho == 1):
+            print('-\n')
+            tam_cabecalho = 0
+        else:
+            print('-', end="")
+            tam_cabecalho = tam_cabecalho - 1
         
+     
     for (key, values) in result_dict.items():
+        i = 0
+        name_program = ""
+        espaco = ""
         #key is the name of the program
         #values are the results of the mutation testing
-        
-        print('{}\t\t\t\t\t'.format(key), end="  ")
-        
+        tam_name = len('{}'.format(key))
+        qtd_esp = tam_esp_name - tam_name
+        while(qtd_esp > 0):
+            espaco = espaco + " "
+            qtd_esp = qtd_esp - 1
+
+        name_program = '{}'.format(key) + espaco
+        print(name_program, end=" ")
         for v in values:
-            print(v + '\t ', end="")
-        
+            if((i== 0) and (len(v)==5)):
+                print(v +'   ', end="")
+            elif ((i==0)and(len(v)==3)):
+                print(v +'     ', end="")
+            elif ((i==1)and(len(v)==2)):
+                print(v +'    ', end="")
+            elif ((i==1)and(len(v)==1)):
+                print(v +'     ', end="")
+            elif ((i==2)and(len(v)==1)):
+                print(v +'      ', end="")
+            elif ((i==2)and(len(v)==2)):
+                print(v +'     ', end="")
+            elif ((i==3)and(len(v)==1)):
+                print(v +'       ', end="")
+            elif ((i==3)and(len(v)==2)):
+                print(v +'      ', end="") 
+            elif ((i==4)and(len(v)==1)):
+                print(v +'       ', end="")
+            elif ((i==4)and(len(v)==2)):
+                print(v +'      ', end="")
+            else:
+                print(v,end="")
+
+            i+=1
         print('\n')
 
 
