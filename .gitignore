@@ -1,6 +1,10 @@
 .*
 *.pyc
 
+#cosmic_ray results
+/database_cosmic_ray
+*.html
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
