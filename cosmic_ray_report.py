@@ -140,6 +140,14 @@ if __name__ == "__main__":
     database_cosmic_ray = 'database_cosmic_ray'
     sections_cosmic_ray_dir_begin = ROOT_DIR + '/sections_cosmic_ray'
 
+    #check if the database dir exists and create if its nedded 
+    d = ROOT_DIR + '/' + database_cosmic_ray
+   
+    try:
+        os.stat(d)
+    except:
+        os.mkdir(d)  
+
     #store the results
     result_dict = {}
 
