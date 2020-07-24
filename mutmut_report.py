@@ -25,38 +25,33 @@ def run_mutmut(path, program):
 
 
 def process_output(output_string, program):
-    if(program=="flatten.py"):
+
+    #find the part of the string that contains the results
+    token = '2. Checking mutants'
+    (before, token, after) = output_string.partition(token)
+
+    #check if there are some valid mutants
+    if after.strip() == '':
+
         results_list = ["-/-", "-", "-", "-", "-", "-"]
-
         result = {program: results_list}
-
-        return result 
-    else:
-        #find the part of the string that contains the results
-        token = '2. Checking mutants'
-        (before, token, after) = output_string.partition(token)
+        
+        print("W: O programa {} não possui mutantes".format(program))
     
+        return result
+
+    else:
         #split the results into a list
         results_list  = after.split()
 
-        try:
-            #get the target data
-            total      = results_list[-11]
-            killed     = results_list[-9]
-            timeout    = results_list[-7]
-            suspicious = results_list[-5]
-            survived   = results_list[-3]
-            alive      = results_list[-1] 
+        #get the target data
+        total      = results_list[-11]
+        killed     = results_list[-9]
+        timeout    = results_list[-7]
+        suspicious = results_list[-5]
+        survived   = results_list[-3]
+        alive      = results_list[-1] 
 
-        except FileNotFoundError as f:
-            print("Outro erro")
-    
-        except IndexError as g:
-            print("Outro erro")
-
-        except Exception as e: 
-            print("W: Problema no programa: {}".format(program))
-            return {program: []}
 
         #update results_list with target data
         results_list = [total, killed, timeout, suspicious, survived, alive]
