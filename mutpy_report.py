@@ -10,48 +10,44 @@ ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 def run_mutpy(path, program):
-    if program == 'node.py':
-        return '[*] Mutation score [0]: 0% - all: - - killed: - (0%) - survived: - (0.0%) - incompetent: - (0.0%)   - timeout: - (0%) [*] Coverage: 0 of 0 AST nodes (-)'
-    else:
-        array_files_copy = []
-        src = ROOT_DIR +'/python_tests'
-        src2 = ROOT_DIR +'/python_programs'
-        dst = ROOT_DIR
-        #copy all tests
-        files_tests = os.listdir(src)
-        for file_test in files_tests:
-            if(file_test=='test_'+program):
-                array_files_copy.append(file_test)
-                shutil.copy(src=src + '/' + file_test, dst=dst)
-        #copy all programs
-        file_programs = os.listdir(src2)
-        for file_program in file_programs:
-            if(file_program == program):
-                array_files_copy.append(file_program)
-                shutil.copy(src=src2 + '/' + file_program, dst=dst)
-        #copy the node file, because it has more than 1 program that uses it
-        file_node_program = os.listdir(src2)
-        for file_node in file_node_program:
-            if(file_node == 'node.py'):
-                shutil.copy(src=src2 + '/' + file_node, dst=dst)
-        #comand line to run  mutmut
-        test_comand = 'mut.py --target {} --unit-test test_{} --runner pytest --coverage'.format(program,program)
-        #runing mutmut using subprocess
-        process = subprocess.Popen(test_comand, stdout=subprocess.PIPE, shell=True)
-        (stdout,stderr) = process.communicate()
+    array_files_copy = []
+    src = ROOT_DIR +'/python_tests'
+    src2 = ROOT_DIR +'/python_programs'
+    dst = ROOT_DIR
+    #copy all tests
+    files_tests = os.listdir(src)
+    for file_test in files_tests:
+        if(file_test=='test_'+program):
+            array_files_copy.append(file_test)
+            shutil.copy(src=src + '/' + file_test, dst=dst)
+    #copy all programs
+    file_programs = os.listdir(src2)
+    for file_program in file_programs:
+        if(file_program == program):
+            array_files_copy.append(file_program)
+            shutil.copy(src=src2 + '/' + file_program, dst=dst)
+    #copy the node file, because it has more than 1 program that uses it
+    file_node_program = os.listdir(src2)
+    for file_node in file_node_program:
+        if(file_node == 'node.py'):
+            shutil.copy(src=src2 + '/' + file_node, dst=dst)
+    #comand line to run  mutmut
+    test_comand = 'mut.py --target {} --unit-test test_{} --runner pytest --coverage'.format(program,program)
+    #runing mutmut using subprocess
+    process = subprocess.Popen(test_comand, stdout=subprocess.PIPE, shell=True)
+    (stdout,stderr) = process.communicate()
 
-        #get the output execution as a string
-        output_string = stdout.decode("utf-8")
-        #remove files whithout node file
-        while(len(array_files_copy)!=0):
-            file = array_files_copy[0]
-            os.remove(file)
-            array_files_copy.remove(file)
-        #remove node file
-        if(os.path.exists('node.py')):
-            os.remove('node.py')
-        
-        return output_string
+    #get the output execution as a string
+    output_string = stdout.decode("utf-8")
+    #remove files whithout node file
+    while(len(array_files_copy)!=0):
+        file = array_files_copy[0]
+        os.remove(file)
+        array_files_copy.remove(file)
+    #remove node file
+    if(os.path.exists('node.py')):
+        os.remove('node.py')       
+    return output_string
 
 
 def process_output(output_string, program):
@@ -62,22 +58,36 @@ def process_output(output_string, program):
 
     #split the results into a list
     results_list  = after.split()
-
     #get the target data
-    ALL         = results_list[-25]
-    Killed      = results_list[-22]
-    Survived    = results_list[-18]
-    Incompetent = results_list[-14]
-    Timeout     = results_list[-10]
-    Coverage    = results_list[-1] 
+    ALL = results_list[5]
+    if(ALL == '0'):
+        results_list = [ALL, '-', '-', '-', '-', '(-)']
+        result = {program: results_list}
 
-    #update results_list with target data
-    results_list = [ALL, Killed, Survived, Incompetent, Timeout, Coverage]
+        return result 
+    else:
+        ALL         = results_list[5]
+        Killed      = results_list[8]
+        Survived    = results_list[12]
+        Incompetent = results_list[16]
+        Timeout     = results_list[20]
+        Coverage    = results_list[29] 
 
-    result = {program: results_list}
+        #update results_list with target data
+        results_list = [ALL, Killed, Survived, Incompetent, Timeout, Coverage]
 
-    return result 
+        result = {program: results_list}
 
+        return result
+
+def excluir_html_python_programs():
+    # moving the html from each program to the html_mutmut dir
+    source = ROOT_DIR + '/python_programs'
+    destination = ROOT_DIR + '/html_mutmut'
+    files_html = os.listdir(source)
+    for i in files_html:
+        if i[-4:] == 'html':
+            #deletar file
 
 
 def print_results(result_dict):
@@ -90,8 +100,6 @@ def print_results(result_dict):
         if(i == 'Name'):
             cabecalho = cabecalho + i + "                               "
             tam_esp_name = len(cabecalho)
-        elif(i == 'Skip'):
-            cabecalho = cabecalho + i
         else:
             cabecalho = cabecalho + i + "    "
     print(cabecalho)
