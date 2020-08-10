@@ -1,9 +1,15 @@
 .*
 *.pyc
 
+#mutmut coverage html
+html_mutmut/
+
 #cosmic_ray results
 database_cosmic_ray/
 *.html
+
+#mutpy coverage html
+html_mutpy/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
