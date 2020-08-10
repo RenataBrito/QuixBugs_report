@@ -3,7 +3,7 @@ module-path = "python_programs/shortest_path_lengths.py"
 python-version = ""
 timeout = 10.0
 excluded-modules = []
-test-command = "python -x pytest python_tests/test_shortest_path_lengths.py"
+test-command = "pytest python_tests/test_shortest_path_lengths.py"
 
 [cosmic-ray.execution-engine]
 name = "local"

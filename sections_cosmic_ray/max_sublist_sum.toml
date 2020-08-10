@@ -3,7 +3,7 @@ module-path = "python_programs/max_sublist_sum.py"
 python-version = ""
 timeout = 10.0
 excluded-modules = []
-test-command = "python -x pytest python_tests/test_max_sublist_sum.py"
+test-command = "pytest python_tests/test_max_sublist_sum.py"
 
 [cosmic-ray.execution-engine]
 name = "local"

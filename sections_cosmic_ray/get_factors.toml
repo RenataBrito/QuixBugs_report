@@ -3,7 +3,7 @@ module-path = "python_programs/get_factors.py"
 python-version = ""
 timeout = 10.0
 excluded-modules = []
-test-command = "python -x pytest python_tests/test_get_factors.py"
+test-command = "pytest python_tests/test_get_factors.py"
 
 [cosmic-ray.execution-engine]
 name = "local"

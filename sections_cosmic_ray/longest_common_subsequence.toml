@@ -3,7 +3,7 @@ module-path = "python_programs/longest_common_subsequence.py"
 python-version = ""
 timeout = 10.0
 excluded-modules = []
-test-command = "python -x pytest python_tests/test_longest_common_subsequence.py"
+test-command = "pytest python_tests/test_longest_common_subsequence.py"
 
 [cosmic-ray.execution-engine]
 name = "local"

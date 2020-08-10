@@ -3,7 +3,7 @@ module-path = "python_programs/rpn_eval.py"
 python-version = ""
 timeout = 10.0
 excluded-modules = []
-test-command = "python -x pytest python_tests/test_rpn_eval.py"
+test-command = "pytest python_tests/test_rpn_eval.py"
 
 [cosmic-ray.execution-engine]
 name = "local"

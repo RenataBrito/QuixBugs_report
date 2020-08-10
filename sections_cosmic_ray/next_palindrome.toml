@@ -3,7 +3,7 @@ module-path = "python_programs/next_palindrome.py"
 python-version = ""
 timeout = 10.0
 excluded-modules = []
-test-command = "python -x pytest python_tests/test_next_palindrome.py"
+test-command = "pytest python_tests/test_next_palindrome.py"
 
 [cosmic-ray.execution-engine]
 name = "local"

@@ -3,7 +3,7 @@ module-path = "python_programs/reverse_linked_list.py"
 python-version = ""
 timeout = 10.0
 excluded-modules = []
-test-command = "python -x pytest python_tests/test_reverse_linked_list.py"
+test-command = "pytest python_tests/test_reverse_linked_list.py"
 
 [cosmic-ray.execution-engine]
 name = "local"

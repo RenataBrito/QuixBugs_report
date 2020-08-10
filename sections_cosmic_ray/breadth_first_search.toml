@@ -3,7 +3,7 @@ module-path = "python_programs/breadth_first_search.py"
 python-version = ""
 timeout = 10.0
 excluded-modules = []
-test-command = "python -x pytest python_tests/test_breadth_first_search.py"
+test-command = "pytest python_tests/test_breadth_first_search.py"
 
 [cosmic-ray.execution-engine]
 name = "local"

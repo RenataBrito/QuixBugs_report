@@ -1,9 +1,9 @@
 [cosmic-ray]
-module-path = "python_programs/possible_change.py"
+module-path = "python_programs/node.py"
 python-version = ""
 timeout = 10.0
 excluded-modules = []
-test-command = "pytest python_tests/test_possible_change.py"
+test-command = "pytest python_tests/test_node.py"
 
 [cosmic-ray.execution-engine]
 name = "local"

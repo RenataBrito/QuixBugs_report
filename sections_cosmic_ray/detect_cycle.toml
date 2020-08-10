@@ -3,7 +3,7 @@ module-path = "python_programs/detect_cycle.py"
 python-version = ""
 timeout = 10.0
 excluded-modules = []
-test-command = "python -x pytest python_tests/test_detect_cycle.py"
+test-command = "pytest python_tests/test_detect_cycle.py"
 
 [cosmic-ray.execution-engine]
 name = "local"

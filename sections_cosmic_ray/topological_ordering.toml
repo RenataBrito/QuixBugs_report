@@ -3,7 +3,7 @@ module-path = "python_programs/topological_ordering.py"
 python-version = ""
 timeout = 10.0
 excluded-modules = []
-test-command = "python -x pytest python_tests/test_topological_ordering.py"
+test-command = "pytest python_tests/test_topological_ordering.py"
 
 [cosmic-ray.execution-engine]
 name = "local"
