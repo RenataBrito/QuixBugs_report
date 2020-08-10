@@ -4,16 +4,15 @@
 import os
 import sys
 import subprocess
+import shutil
 
 #used to find the root dir of the projetct
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 def run_mutmut(path, program):
-
     #comand line to run  mutmut
     test_comand = 'mutmut run --paths-to-mutate={}/{}'.format(path, program) 
-    
     #runing mutmut using subprocess
     process = subprocess.Popen(test_comand, stdout=subprocess.PIPE, shell=True)
     (stdout,stderr) = process.communicate()
@@ -128,6 +127,25 @@ def print_results(result_dict):
         print('\n')
 
 
+def report_html():
+    #execute the command to generate html report
+    test_comand = 'mutmut html' 
+    process = subprocess.Popen(test_comand, stdout=subprocess.PIPE, shell=True)
+    (stdout,stderr) = process.communicate()
+
+    #lists directory
+    name_dir = os.listdir(os.getcwd())
+    
+    # if there is a html_mutmut dir, delete it
+    for dir_s in name_dir:
+        if dir_s == 'html_mutmut':
+            shutil.rmtree(ROOT_DIR + '/html_mutmut')
+    # renames the automatically generated dir (html) to html_mutmut
+    os.rename('html', 'html_mutmut')
+    
+
+
+
 if __name__ == "__main__":
 
     #target dir
@@ -146,10 +164,8 @@ if __name__ == "__main__":
         string_result = run_mutmut(python_programs_dir, python_program)
         result_dict = process_output(string_result, python_program)
 
-
     #run for all programs
     else:
-
         #walk into the dirs of the project
         for dir_name, subdir_list, file_list in os.walk(ROOT_DIR):
 
@@ -168,6 +184,9 @@ if __name__ == "__main__":
 
                         #add the results in the final dictionary
                         result_dict.update(results) 
+                        
 
     #after get all the results, print in the screen
     print_results(result_dict)
+    #create html report
+    report_html
