@@ -9,68 +9,46 @@ import subprocess
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 def run_a_program(sections_cosmic_ray,database_cosmic_ray,program):
-    if(program == "node"):
-        return
-    else:
-        #starts the section
-        test_comand = 'cosmic-ray init {}/{}.toml {}/{}.sqlite'.format(sections_cosmic_ray, program,database_cosmic_ray,program)
-        #runing starts section about cosmic ray using subprocess
-        process = subprocess.Popen(test_comand, stdout=subprocess.PIPE, shell=True)
-        (stdout,stderr) = process.communicate()
+    #starts the section
+    test_comand = 'cosmic-ray init {}/{}.toml {}/{}.sqlite'.format(sections_cosmic_ray, program,database_cosmic_ray,program)
+    #runing starts section about cosmic ray using subprocess
+    process = subprocess.Popen(test_comand, stdout=subprocess.PIPE, shell=True)
+    (stdout,stderr) = process.communicate()
+    
+    #Run the section
+    test_comand = 'cosmic-ray exec {}/{}.sqlite'.format(database_cosmic_ray,program)
+    #runing run about cosmic ray using subprocess
+    process = subprocess.Popen(test_comand, stdout=subprocess.PIPE, shell=True)
+    (stdout,stderr) = process.communicate()
+    
+    #print at terminal
+    test_comand = 'cr-report {}/{}.sqlite'.format(database_cosmic_ray,program)
+    #runing output about cosmic ray using subprocess
+    process = subprocess.Popen(test_comand, stdout=subprocess.PIPE, shell=True)
+    (stdout,stderr) = process.communicate()
 
-        #Run the section
-        test_comand = 'cosmic-ray exec {}/{}.sqlite'.format(database_cosmic_ray,program)
-        #runing run about cosmic ray using subprocess
-        process = subprocess.Popen(test_comand, stdout=subprocess.PIPE, shell=True)
-        (stdout,stderr) = process.communicate()
-
-        #print at terminal
-        test_comand = 'cr-report {}/{}.sqlite'.format(database_cosmic_ray,program)
-        #runing output about cosmic ray using subprocess
-        process = subprocess.Popen(test_comand, stdout=subprocess.PIPE, shell=True)
-        (stdout,stderr) = process.communicate()
-
-        #get the output execution as a string
-        output_string = stdout.decode("utf-8")    
-        return output_string
+    #get the output execution as a string
+    output_string = stdout.decode("utf-8")   
+    return output_string
 
 def process_output(output_string,program):
-    if(program=="node"):
-        results_list = ["-", "-", "-"]
+    #find the part of the string that contains the results
+    token = 'total jobs: '
+    (before, token, after) = output_string.partition(token)
 
+    #split the results into a list
+    results_list = after.split()
+    total      = results_list[0]
+    if(total == '0'):
+        results_list = [total, '-', '-']
         result = {program: results_list}
-
-        return result 
+        return result
     else:
-        #find the part of the string that contains the results
-        token = 'total jobs: '
-        (before, token, after) = output_string.partition(token)
-
-        #split the results into a list
-        results_list = after.split()
-
-        try:
-            #get the target data
-            total      = results_list[-7]
-            killed     = results_list[-5]
-            survived   = results_list[-1] 
-
-        except FileNotFoundError as f:
-            print("Outro erro: ",f)
-    
-        except IndexError as g:
-            print("Outro erro: ",g)
-
-        except Exception as e: 
-            print("W: Problema no programa: {}".format(program) + "erro: ",  e)
-            return {program: []}
-
+        killed     = results_list[2]
+        survived   = results_list[6] 
         results_list = [total, killed, survived]
         result = {program: results_list}
         return result 
-
-    
-
 
 def print_result(output_terminal):
     #printing the results
