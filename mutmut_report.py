@@ -189,4 +189,4 @@ if __name__ == "__main__":
     #after get all the results, print in the screen
     print_results(result_dict)
     #create html report
-    report_html
+    report_html()
