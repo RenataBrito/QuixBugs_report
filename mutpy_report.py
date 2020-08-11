@@ -80,8 +80,7 @@ def process_output(output_string, program):
 
         return result
 
-def excluir_html_python_programs():
-    # moving the html from each program to the html_mutmut dir
+def delete_html_from_mutmut_python_programs():
     source = ROOT_DIR + '/python_programs'
     files_html = os.listdir(source)
     for i in files_html:
@@ -197,4 +196,4 @@ if __name__ == "__main__":
     print_results(result_dict)
 
     #excluding html from mutmut
-    excluir_html_python_programs()
+    delete_html_from_mutmut_python_programs()
