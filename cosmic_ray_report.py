@@ -109,7 +109,13 @@ def print_result(output_terminal):
             i+=1
         print('\n')
   
-    
+def delete_html_from_mutmut_python_programs():
+    source = ROOT_DIR + '/python_programs'
+    files_html = os.listdir(source)
+    for i in files_html:
+        if i[-4:] == 'html':
+            my_file = source + "/" + i
+            os.remove(my_file)    
 
 if __name__ == "__main__":
 
@@ -159,3 +165,6 @@ if __name__ == "__main__":
                         result_dict.update(results) 
         #after get all the results, print in the screen
         print_result(result_dict)
+    
+    #excluding html from mutmut
+    delete_html_from_mutmut_python_programs()
