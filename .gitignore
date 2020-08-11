@@ -6,6 +6,9 @@ study/
 #mutmut coverage html
 html_mutmut/
 
+#cosmic_ray coverage html
+html_cosmic_ray/
+
 #cosmic_ray results
 database_cosmic_ray/
 *.html
