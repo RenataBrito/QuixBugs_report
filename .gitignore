@@ -1,5 +1,7 @@
 .*
 *.pyc
+#supplie files
+study/
 
 #mutmut coverage html
 html_mutmut/
