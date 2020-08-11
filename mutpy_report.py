@@ -10,6 +10,13 @@ ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 def run_mutpy(path, program):
+    #check if the html dir exists and create if its nedded 
+    d = ROOT_DIR + '/' + 'html_mutpy'
+    try:
+        os.stat(d)
+    except:
+        os.mkdir(d)
+    
     array_files_copy = []
     src = ROOT_DIR +'/python_tests'
     src2 = ROOT_DIR +'/python_programs'
@@ -31,8 +38,15 @@ def run_mutpy(path, program):
     for file_node in file_node_program:
         if(file_node == 'node.py'):
             shutil.copy(src=src2 + '/' + file_node, dst=dst)
+    #name dir about your report html
+    python_program_dir = python_program[:-3] + '_html'
+    #check if the html dir exists and remove it 
+    g = d + '/' + python_program_dir
+    if os.path.exists(g):
+        shutil.rmtree(g)
+
     #comand line to run  mutmut
-    test_comand = 'mut.py --target {} --unit-test test_{} --runner pytest --coverage'.format(program,program)
+    test_comand = 'mut.py --target {} --unit-test test_{} --runner pytest --coverage --report-html {}'.format(program,program,python_program_dir)
     #runing mutmut using subprocess
     process = subprocess.Popen(test_comand, stdout=subprocess.PIPE, shell=True)
     (stdout,stderr) = process.communicate()
@@ -46,7 +60,10 @@ def run_mutpy(path, program):
         array_files_copy.remove(file)
     #remove node file
     if(os.path.exists('node.py')):
-        os.remove('node.py')       
+        os.remove('node.py') 
+    #move dir about individual html
+    shutil.move(ROOT_DIR+'/'+python_program_dir, d)
+
     return output_string
 
 
@@ -78,15 +95,8 @@ def process_output(output_string, program):
 
         result = {program: results_list}
 
-        return result
+        return result 
 
-def delete_html_from_mutmut_python_programs():
-    source = ROOT_DIR + '/python_programs'
-    files_html = os.listdir(source)
-    for i in files_html:
-        if i[-4:] == 'html':
-            my_file = source + "/" + i
-            os.remove(my_file)
 
 def print_results(result_dict):
 
@@ -150,7 +160,6 @@ def print_results(result_dict):
             i+=1
         print('\n')
 
-
 if __name__ == "__main__":
 
     #target dir
@@ -168,7 +177,6 @@ if __name__ == "__main__":
         #execute mutmut and save the results in the dictionary
         string_result = run_mutpy(python_programs_dir, python_program)
         result_dict = process_output(string_result, python_program)
-
 
     #run for all programs
     else:
@@ -194,6 +202,3 @@ if __name__ == "__main__":
 
     #after get all the results, print in the screen
     print_results(result_dict)
-
-    #excluding html from mutmut
-    delete_html_from_mutmut_python_programs()
