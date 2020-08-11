@@ -4,6 +4,7 @@
 import os
 import sys
 import subprocess
+import shutil
 
 #used to find the root dir of the projetct
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -108,14 +109,34 @@ def print_result(output_terminal):
 
             i+=1
         print('\n')
-  
-def delete_html_from_mutmut_python_programs():
-    source = ROOT_DIR + '/python_programs'
-    files_html = os.listdir(source)
-    for i in files_html:
-        if i[-4:] == 'html':
-            my_file = source + "/" + i
-            os.remove(my_file)    
+
+def report_html(database_cosmic_ray,program_name):
+    
+    #execute the command to generate html report
+    test_comand = 'cr-html {}/{}.sqlite > {}.html'.format(database_cosmic_ray, program_name,program_name) 
+    process = subprocess.Popen(test_comand, stdout=subprocess.PIPE, shell=True)
+    (stdout,stderr) = process.communicate()
+
+    #check if the html dir exists and create if its nedded 
+    d = ROOT_DIR + '/' + 'html_cosmic_ray'
+    try:
+        os.stat(d)
+    except:
+        os.mkdir(d)  
+
+    source = ROOT_DIR + '/' + '{}.html'.format(python_program)
+    destination = d
+
+    if os.path.exists(d + '/' + '{}.html'.format(python_program)):
+        os.remove(d + '/' + '{}.html'.format(python_program))
+
+    try:
+        shutil.move(source, destination)
+    except FileNotFoundError as identifier:
+        
+        #this will happen when no mutant is generated, so just exit the function
+        return
+
 
 if __name__ == "__main__":
 
@@ -143,6 +164,8 @@ if __name__ == "__main__":
         string_result = run_a_program(sections_cosmic_ray,database_cosmic_ray,python_program)
         result_dict = process_output(string_result,python_program)
         print_result(result_dict)
+        #create html report
+        report_html(database_cosmic_ray,python_program)
     #run for all programs
     else:
         #walk into the dirs of the project
@@ -163,8 +186,8 @@ if __name__ == "__main__":
 
                         #add the results in the final dictionary
                         result_dict.update(results) 
+                        #create html report
+                        report_html(database_cosmic_ray,python_program)
         #after get all the results, print in the screen
         print_result(result_dict)
     
-    #excluding html from mutmut
-    delete_html_from_mutmut_python_programs()
