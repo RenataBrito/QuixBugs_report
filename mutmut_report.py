@@ -127,22 +127,43 @@ def print_results(result_dict):
         print('\n')
 
 
-def report_html():
+def report_html(program_name):
+    
     #execute the command to generate html report
     test_comand = 'mutmut html' 
     process = subprocess.Popen(test_comand, stdout=subprocess.PIPE, shell=True)
     (stdout,stderr) = process.communicate()
 
+    #check if the html dir exists and create if its nedded 
+    d = ROOT_DIR + '/' + 'html_mutmut'
+   
+    try:
+        os.stat(d)
+    except:
+        os.mkdir(d)  
+
+
+    #move the html file from source to destination
+    html_name = program_name + '.html'
+
+    source = ROOT_DIR + '/python_programs/' + html_name
+    destination = ROOT_DIR + "/html_mutmut/" + html_name
+
+    try:
+        shutil.move(source, destination)
+    except FileNotFoundError as identifier:
+        
+        #this will happen when no mutant is generated, so just exit the function
+        return
+    
+
     #lists directory
     name_dir = os.listdir(os.getcwd())
     
-    # if there is a html_mutmut dir, delete it
+    # if there is a html dir, delete it
     for dir_s in name_dir:
-        if dir_s == 'html_mutmut':
-            shutil.rmtree(ROOT_DIR + '/html_mutmut')
-    # renames the automatically generated dir (html) to html_mutmut
-    os.rename('html', 'html_mutmut')
-    
+        if dir_s == 'html':
+            shutil.rmtree(ROOT_DIR + '/html')
 
 
 
@@ -163,6 +184,9 @@ if __name__ == "__main__":
         #execute mutmut and save the results in the dictionary
         string_result = run_mutmut(python_programs_dir, python_program)
         result_dict = process_output(string_result, python_program)
+
+        #create html report
+        report_html(python_program)
 
     #run for all programs
     else:
@@ -185,8 +209,8 @@ if __name__ == "__main__":
                         #add the results in the final dictionary
                         result_dict.update(results) 
                         
+                        #create html report
+                        report_html(python_program)
 
     #after get all the results, print in the screen
     print_results(result_dict)
-    #create html report
-    report_html
