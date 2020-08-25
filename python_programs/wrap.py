@@ -8,4 +8,3 @@ def wrap(text, cols):
 
     lines.append(text)
     return lines
-

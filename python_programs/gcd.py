@@ -4,10 +4,3 @@ def gcd(a, b):
         return a
     else:
         return gcd(b, a % b)
-
-"""if __name__ == "__main__":
-    a = 10
-    b = 3
-    print(gcd(a,b))
-    pass
-"""
