@@ -4,3 +4,4 @@
 [["abcdefg", "gabcdef"], 2]
 [["", ""], 0]
 [["hello", "olleh"], 4]
+[["test", "estt"], 2]
