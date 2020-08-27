@@ -159,12 +159,21 @@ def report_html(program_name):
 
     #lists directory
     name_dir = os.listdir(os.getcwd())
-    
+
     # if there is a html dir, delete it
     for dir_s in name_dir:
         if dir_s == 'html':
             shutil.rmtree(ROOT_DIR + '/html')
 
+    #when create the html for one it creates for everyone, excluding html
+    python_programs_dir = ROOT_DIR + '/python_programs/'
+    files_by_dir_python_programs = os.listdir(python_programs_dir)
+    for single_file in files_by_dir_python_programs:
+        if(single_file[-4:] == 'html'):
+            os.remove(python_programs_dir + single_file)
+        
+
+    
 
 
 if __name__ == "__main__":
