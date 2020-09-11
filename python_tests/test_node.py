@@ -1,4 +1,4 @@
-from node import Node
+from python_programs.node import Node
 
 
 def test_successor():
