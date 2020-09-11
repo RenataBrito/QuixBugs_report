@@ -23,7 +23,7 @@ Getting started:
 
 	git clone https://github.com/RenataBrito/quickfix_report.git
     cd quickfix_report
-    python3 -m venv ~/quickfix_report/venv
+    python3 -m venv ~/quickfix_report/venv // virtualenv -p python3 venv
     source venv/bin/activate
     pip install -r requirements.txt
 
