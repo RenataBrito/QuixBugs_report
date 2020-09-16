@@ -41,3 +41,9 @@ def test_Graph_with_cycle():
     }
     assert shortest_paths('A', graph3) == Output
 
+def test_Graph_with_one_node():
+    Output = {'B':1, 'A':0}
+    graph4 = {
+        ('A', 'B'): 1,
+    }
+    assert shortest_paths('A', graph4) == Output
