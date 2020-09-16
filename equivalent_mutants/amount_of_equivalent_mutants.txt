@@ -1,0 +1,10 @@
+wrap.py 					01
+shortest_paths.py			01
+shortest_path_length.py     01
+knapsack.py					01
+possible_change.py			02
+lis.py						01
+mergesort.py				01
+next_permutation.py			01
+get_factors.py				04
+quicksort.py				01
