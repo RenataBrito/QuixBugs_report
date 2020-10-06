@@ -5,7 +5,7 @@ import os
 import sys
 import subprocess
 import shutil
-
+import time
 #used to find the root dir of the projetct
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -177,7 +177,7 @@ def report_html(program_name):
 
 
 if __name__ == "__main__":
-
+    time1=time2=time3=time4=time5=time6=time7=time8=timetotal=0
     #target dir
     python_programs_dir = ROOT_DIR +'/python_programs'
 
@@ -191,11 +191,23 @@ if __name__ == "__main__":
         python_program = str(sys.argv[1])
 
         #execute mutmut and save the results in the dictionary
+        inicio = time.time()
         string_result = run_mutmut(python_programs_dir, python_program)
+        fim = time.time()
+        time6 = fim - inicio
+        timetotal = timetotal + time6
+        inicio = time.time()
         result_dict = process_output(string_result, python_program)
+        fim = time.time()
+        time7 = fim - inicio
+        timetotal = timetotal + time7
 
         #create html report
+        inicio = time.time()
         report_html(python_program)
+        fim = time.time()
+        time8 = fim - inicio
+        timetotal = timetotal + time8
 
     #run for all programs
     else:
@@ -212,14 +224,38 @@ if __name__ == "__main__":
                     if python_program[-2:] == 'py':
                         
                         #execute mutmut and get the results
+                        inicio = time.time()
                         string_result = run_mutmut(python_programs_dir, python_program)
+                        fim = time.time()
+                        time1 = fim - inicio
+                        timetotal = timetotal + time1
+                        inicio = time.time()
                         results = process_output(string_result, python_program)
+                        fim = time.time()
+                        time2 = fim - inicio
+                        timetotal = timetotal + time2
+                        timeprog = time1 + time2
+                        print('Tempo gasto pelo programa', python_program[:-3],end="")
+                        print(" {0:.2f}s".format(timeprog))
 
                         #add the results in the final dictionary
+                        inicio = time.time()
                         result_dict.update(results) 
+                        fim = time.time()
+                        time3 = fim - inicio
+                        timetotal = timetotal + time3
                         
                         #create html report
+                        inicio = time.time()
                         report_html(python_program)
+                        fim = time.time()
+                        time4 = fim - inicio
+                        timetotal = timetotal + time4
 
     #after get all the results, print in the screen
+    inicio = time.time()
     print_results(result_dict)
+    fim = time.time()
+    time5 = fim - inicio
+    timetotal = timetotal + time5
+    print("Tempo total: {0:.2f}s".format(timetotal))
